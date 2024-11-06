@@ -13,6 +13,8 @@ def map(file: Path):
 def reduce(word: str, occurrences: list[str]):
     occurrences_count = len(occurrences)
     print({'word': word, 'occurrences': occurrences_count})
+    with Path('./final_file.tmp').open('a') as final_file:
+        final_file.write(f'{word}: {occurrences_count}\n')
 
 if __name__ == '__main__':
     path = Path('./')
