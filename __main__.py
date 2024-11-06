@@ -1,31 +1,14 @@
-from collections import defaultdict
 from pathlib import Path
 from threading import Thread
 
-def is_valid_file(file):
-    return file.is_file() and file.name.endswith("txt")
+import file_utils
 
 def map(file: Path):
-    if is_valid_file(file):
+    if file_utils.is_valid_file(file):
         words = file.read_text().replace('\n', ' ').split(' ')
         with Path('./output.tmp').open('a') as output_file:
             for word in words:
                 output_file.write(f'{word}: "1"\n')
-
-def order_temp_file():
-    temp_file = Path('./output.tmp')
-    words = temp_file.read_text().split('\n')
-
-    word_ocurrence_dict = defaultdict(list)
-
-    for line in words:
-        word = line.split(' ')[0].replace(':', '')
-        if word:
-            word_ocurrence_dict[word].append('1')
-
-    word_ocurrence_list = [{"word": word, "occurrences": occurrences} for word, occurrences in word_ocurrence_dict.items()]
-
-    return word_ocurrence_list
 
 def reduce(word: str, occurrences: list[str]):
     occurrences_count = len(occurrences)
@@ -48,7 +31,7 @@ if __name__ == '__main__':
         thread.join()
 
     # Ordena o arquivo temporário e obtém a lista de ocorrências de palavras
-    word_ocurrence_list = order_temp_file()
+    word_ocurrence_list = file_utils.order_temp_file()
 
     reduce_threads = []
 
