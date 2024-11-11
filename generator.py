@@ -33,8 +33,8 @@ class FileGenerator:
 # Exemplo de uso do FileGenerator
 if __name__ == "__main__":
     file_generator = FileGenerator(
-        split=3,              # Dividir o texto em 3 arquivos
-        n=100,                # Gerar 100 palavras
+        split=5,              # Dividir o texto em 3 arquivos
+        n=20000,                # Gerar 100 palavras
         alphabet=['a', 'b', 'c', 'd', 'e'],  # Definir as letras permitidas
         min_size=3,           # Tamanho mínimo de palavras: 3 letras
         max_size=6            # Tamanho máximo de palavras: 6 letras

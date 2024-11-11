@@ -1,14 +1,16 @@
 from pathlib import Path
 from threading import Thread
+from re import search
 
 import file_utils
 
-def map(file: Path):
+def map(file: Path, regex: str):
     if file_utils.is_valid_file(file):
         words = file.read_text().replace('\n', ' ').split(' ')
         with Path('./output.tmp').open('a') as output_file:
             for word in words:
-                output_file.write(f'{word}: "1"\n')
+                if search(regex, word):
+                    output_file.write(f'{word}: "1"\n')
 
 def reduce(word: str, occurrences: list[str]):
     occurrences_count = len(occurrences)
@@ -17,6 +19,8 @@ def reduce(word: str, occurrences: list[str]):
         final_file.write(f'{word}: {occurrences_count}\n')
 
 if __name__ == '__main__':
+    regex = input("Informe o regex: ")
+
     path = Path('./')
     files_on_path = path.glob('*')
 
@@ -24,7 +28,7 @@ if __name__ == '__main__':
 
     # Executa a função map em uma thread para cada arquivo
     for file in files_on_path:
-        thread = Thread(target=map, args=(file,))
+        thread = Thread(target=map, args=(file, regex,))
         thread.start()
         map_threads.append(thread)
 
