@@ -21,7 +21,7 @@ def reduce(word: str, occurrences: list[str]):
 if __name__ == '__main__':
     regex = input("Informe o regex: ")
 
-    path = Path('./')
+    path = Path('./files/')
     files_on_path = path.glob('*')
 
     map_threads = []
