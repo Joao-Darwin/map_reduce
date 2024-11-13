@@ -14,7 +14,6 @@ def map(file: Path, regex: str):
 
 def reduce(word: str, occurrences: list[str]):
     occurrences_count = len(occurrences)
-    print({'word': word, 'occurrences': occurrences_count})
     with Path('./final_file.tmp').open('a') as final_file:
         for _ in range(occurrences_count):
             final_file.write(f'{word}\n')
