@@ -12,7 +12,7 @@ def order_temp_file():
     word_ocurrence_dict = defaultdict(list)
 
     for line in words:
-        word = line.split(' ')[0].replace(':', '')
+        word = line.split(':')[0]
         if word:
             word_ocurrence_dict[word].append('1')
 

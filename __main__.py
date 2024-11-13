@@ -6,7 +6,7 @@ import file_utils
 
 def map(file: Path, regex: str):
     if file_utils.is_valid_file(file):
-        words = file.read_text().replace('\n', ' ').split(' ')
+        words = file.read_text().split('\n')
         with Path('./output.tmp').open('a') as output_file:
             for word in words:
                 if search(regex, word):
@@ -16,7 +16,8 @@ def reduce(word: str, occurrences: list[str]):
     occurrences_count = len(occurrences)
     print({'word': word, 'occurrences': occurrences_count})
     with Path('./final_file.tmp').open('a') as final_file:
-        final_file.write(f'{word}: {occurrences_count}\n')
+        for _ in range(occurrences_count):
+            final_file.write(f'{word}\n')
 
 if __name__ == '__main__':
     regex = input("Informe o regex: ")
